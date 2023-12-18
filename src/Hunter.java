@@ -199,4 +199,11 @@ public class Hunter {
 
         return -1;
     }
+    public void allItems(){
+        addItem("water");
+        addItem("rope");
+        addItem("machete");
+        addItem("horse");
+        addItem("boat");
+    }
 }

@@ -57,6 +57,7 @@ public class TreasureHunter {
         }else if (hard.equals("test")){
             test = true;
             hunter = new Hunter(name, 100);
+            hunter.allItems();
         }
     }
 
