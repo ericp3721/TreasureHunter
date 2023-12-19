@@ -27,6 +27,8 @@ public class Hunter {
         return hunterName;
     }
 
+    public int getHunterGold() { return gold; }
+
     /**
      * Updates the amount of gold the hunter has.
      *
@@ -34,9 +36,6 @@ public class Hunter {
      */
     public void changeGold(int modifier) {
         gold += modifier;
-        if (gold < 0) {
-            gold = 0;
-        }
     }
 
     /**
@@ -199,7 +198,7 @@ public class Hunter {
 
         return -1;
     }
-    public void allItems(){
+    public void addAllItems(){
         addItem("water");
         addItem("rope");
         addItem("machete");
