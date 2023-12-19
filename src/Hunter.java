@@ -19,7 +19,7 @@ public class Hunter {
      */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
-        kit = new String[5]; // only 5 possible items can be stored in kit
+        kit = new String[6]; // only 6 possible items can be stored in kit
         treasures = new String[3]; // only 3 possible treasures can be collected because dust can't
         gold = startingGold;
     }
@@ -89,6 +89,7 @@ public class Hunter {
         }
     }
 
+
     public boolean addTreasure(String treasure) {
         if (!hasTreasure(treasure)) {
             int idx = emptyPositionInTreasures();
@@ -114,12 +115,13 @@ public class Hunter {
         return false;
     }
 
-    public void addAllItems() {
+    public void addAllItems(){
         addItem("water");
         addItem("rope");
         addItem("machete");
         addItem("horse");
         addItem("boat");
+        addItem("boots");
     }
 
     /**
