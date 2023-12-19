@@ -8,6 +8,7 @@ public class Hunter {
     //instance variables
     private String hunterName;
     private String[] kit;
+    private String[] treasures;
     private int gold;
 
     /**
@@ -19,6 +20,7 @@ public class Hunter {
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
         kit = new String[5]; // only 5 possible items can be stored in kit
+        treasures = new String[3]; // only 3 possible treasures can be collected because dust can't
         gold = startingGold;
     }
 
@@ -87,6 +89,15 @@ public class Hunter {
         }
     }
 
+    public boolean addTreasure(String treasure) {
+        if (!hasTreasure(treasure)) {
+            int idx = emptyPositionInTreasures();
+            treasures[idx] = treasure;
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Checks to make sure that the item is not already in the kit.
      * If not, it assigns the item to an index in the kit with a null value ("empty" position).
@@ -100,8 +111,15 @@ public class Hunter {
             kit[idx] = item;
             return true;
         }
-
         return false;
+    }
+
+    public void addAllItems() {
+        addItem("water");
+        addItem("rope");
+        addItem("machete");
+        addItem("horse");
+        addItem("boat");
     }
 
     /**
@@ -117,27 +135,41 @@ public class Hunter {
                 return true;
             }
         }
+        return false;
+    }
 
+    public boolean hasTreasure(String treasure) {
+        for (String tmpTreasure : treasures) {
+            if (treasure.equals(tmpTreasure)) {
+                return true;
+            }
+        }
         return false;
     }
 
     /**
      * Returns a printable representation of the inventory, which
-     * is a list of the items in kit, with a space between each item.
+     * is a list of the items in kit and treasures, with a space between each item.
      *
      * @return The printable String representation of the inventory.
      */
     public String getInventory() {
-        String printableKit = "";
+        String printableKitandTreasures = "";
         String space = " ";
 
         for (String item : kit) {
             if (item != null) {
-                printableKit += Colors.PURPLE + item + Colors.RESET + space;
+                printableKitandTreasures += Colors.PURPLE + item + Colors.RESET + space;
             }
         }
 
-        return printableKit;
+        for (String treasure : treasures) {
+            if (treasure != null) {
+                printableKitandTreasures += Colors.GREEN + treasure + Colors.RESET + space;
+            }
+        }
+
+        return printableKitandTreasures;
     }
 
     /**
@@ -145,7 +177,7 @@ public class Hunter {
      */
     public String toString() {
         String str = hunterName + " has " + Colors.YELLOW + gold + Colors.RESET + " gold";
-        if (!kitIsEmpty()) {
+        if (!kitIsEmpty() || !noTreasures()) {
             str += " and " + getInventory();
         }
         return str;
@@ -184,6 +216,16 @@ public class Hunter {
         return true;
     }
 
+    private boolean noTreasures() {
+        for (String string : treasures) {
+            if (string != null) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * Finds the first index where there is a null value.
      *
@@ -195,14 +237,15 @@ public class Hunter {
                 return i;
             }
         }
-
         return -1;
     }
-    public void addAllItems(){
-        addItem("water");
-        addItem("rope");
-        addItem("machete");
-        addItem("horse");
-        addItem("boat");
+
+    private int emptyPositionInTreasures() {
+        for (int i = 0; i < treasures.length; i++) {
+            if (treasures[i] == null) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
