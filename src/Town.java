@@ -144,6 +144,9 @@ public class Town {
             System.out.println("You found " + treasure + "!");
             hunter.addTreasure(treasure);
             searched = true;
+            if (hunter.foundAll()) {
+                TreasureHunter.setAllTreasuresFound(true);
+            }
         }
     }
 

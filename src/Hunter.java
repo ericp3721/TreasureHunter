@@ -215,6 +215,11 @@ public class Hunter {
         return -1;
     }
 
+    public boolean foundAll() {
+        return emptyPositionInTreasures() == -1;
+    }
+
+
     /**
      * Check if the kit is empty - meaning all elements are null.
      *

@@ -16,6 +16,7 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
+    private static boolean allTreasuresFound;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -25,6 +26,11 @@ public class TreasureHunter {
         currentTown = null;
         hunter = null;
         hardMode = false;
+        allTreasuresFound = false;
+    }
+
+    public static void setAllTreasuresFound(boolean bool) {
+        allTreasuresFound = bool;
     }
 
     /**
@@ -97,7 +103,7 @@ public class TreasureHunter {
     private void showMenu() {
         String choice = "";
 
-        while (!choice.equals("x") && !(hunter.getHunterGold() < 0)) {
+        while (!choice.equals("x") && !(hunter.getHunterGold() < 0) && !allTreasuresFound) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -117,6 +123,10 @@ public class TreasureHunter {
 
         if (hunter.getHunterGold() < 0) {
             System.out.println(currentTown.getLatestNews());
+        }
+
+        if (allTreasuresFound) {
+            System.out.println("Congratulations, you have found the last of the three treasures, you win!");
         }
     }
 
