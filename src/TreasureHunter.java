@@ -17,7 +17,8 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private static boolean allTreasuresFound;
-    private static boolean easymode;
+    private static boolean easyMode;
+    private static boolean samuraiMode;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -28,7 +29,8 @@ public class TreasureHunter {
         hunter = null;
         hardMode = false;
         allTreasuresFound = false;
-        easymode = false;
+        easyMode = false;
+        samuraiMode = false;
     }
 
     public static void setAllTreasuresFound(boolean bool) {
@@ -45,9 +47,11 @@ public class TreasureHunter {
     }
     
     public static boolean isEasyMode() {
-        return easymode;
+        return easyMode;
     }
-
+    public static boolean isSamuraiMode(){
+        return samuraiMode;
+    }
     /**
      * Creates a hunter object at the beginning of the game and populates the class member variable with it.
      */
@@ -69,7 +73,10 @@ public class TreasureHunter {
             hunter.addAllItems();
         } else if (hard.equals("e")){
             hunter = new Hunter(name, 20);
-            easymode = true;
+            easyMode = true;
+        } else if (hard.equals("s")){
+            samuraiMode = true;
+
         }
     }
 
@@ -86,7 +93,7 @@ public class TreasureHunter {
             // and the town is "tougher"
             toughness = 0.75;
         }
-        if (easymode){
+        if (easyMode){
             markdown = 1;
             toughness = 0.2;
         }
