@@ -15,6 +15,7 @@ public class Town {
     private boolean searched;
     private boolean dugForGold;
 
+
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
      *
@@ -51,7 +52,9 @@ public class Town {
     }
 
     public String getLatestNews() {
-        return printMessage;
+        String message = printMessage;
+        printMessage = "";
+        return message;
     }
 
     /**
@@ -79,18 +82,19 @@ public class Town {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
         if (canLeaveTown) {
             String item = terrain.getNeededItem();
-            printMessage = "You used your " + item + " to cross the " + terrain.getTerrainName() + ".";
+            printMessage  = "You used your " + item + " to cross the " + terrain.getTerrainName() + ".";
             if (checkItemBreak()) {
                 hunter.removeItemFromKit(item);
-                printMessage += "\nUnfortunately, your " + item + " broke.";
+                // Update the message for item breakage
+                printMessage  += "\nUnfortunately, you lost your " + item;
             }
-
             return true;
         }
 
-        printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have a " + terrain.getNeededItem() + ".";
+        printMessage  = "You can't leave town, " + hunter.getHunterName() + ". You don't have a " + terrain.getNeededItem() + ".";
         return false;
     }
+
 
     /**
      * Handles calling the enter method on shop whenever the user wants to access the shop.
@@ -99,6 +103,11 @@ public class Town {
      */
     public void enterShop(String choice) {
         shop.enter(hunter, choice);
+        if (choice.equals("b")) {
+            printMessage = "You left the shop.";
+        } else {
+            printMessage = "You left the shop.";
+        }
     }
 
     /**
