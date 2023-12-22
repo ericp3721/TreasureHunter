@@ -17,6 +17,7 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private static boolean allTreasuresFound;
+    private boolean easymode;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -27,6 +28,7 @@ public class TreasureHunter {
         hunter = null;
         hardMode = false;
         allTreasuresFound = false;
+        easymode = false;
     }
 
     public static void setAllTreasuresFound(boolean bool) {
@@ -54,13 +56,16 @@ public class TreasureHunter {
         // set hunter instance variable
         hunter = new Hunter(name, 10);
 
-        System.out.print("Hard mode? (y/n): ");
+        System.out.print("e: easy, n: normal, h:hard: ");
         String hard = SCANNER.nextLine().toLowerCase();
-        if (hard.equals("y")) {
+        if (hard.equals("h")) {
             hardMode = true;
         } else if (hard.equals("test")){
             hunter = new Hunter(name, 100);
             hunter.addAllItems();
+        } else if (hard.equals("e")){
+            hunter = new Hunter(name, 20);
+            easymode = true;
         }
     }
 
@@ -76,6 +81,10 @@ public class TreasureHunter {
 
             // and the town is "tougher"
             toughness = 0.75;
+        }
+        if (easymode){
+            markdown = 1;
+            toughness = 0.5;
         }
 
         // note that we don't need to access the Shop object
