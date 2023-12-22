@@ -17,7 +17,7 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private static boolean allTreasuresFound;
-    private boolean easymode;
+    private static boolean easymode;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -42,6 +42,10 @@ public class TreasureHunter {
         welcomePlayer();
         enterTown();
         showMenu();
+    }
+    
+    public static boolean isEasyMode() {
+        return easymode;
     }
 
     /**
@@ -84,7 +88,7 @@ public class TreasureHunter {
         }
         if (easymode){
             markdown = 1;
-            toughness = 0.5;
+            toughness = 0.2;
         }
 
         // note that we don't need to access the Shop object

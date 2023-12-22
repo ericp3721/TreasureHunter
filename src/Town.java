@@ -83,10 +83,12 @@ public class Town {
         if (canLeaveTown) {
             String item = terrain.getNeededItem();
             printMessage  = "You used your " + item + " to cross the " + terrain.getTerrainName() + ".";
-            if (checkItemBreak()) {
-                hunter.removeItemFromKit(item);
-                // Update the message for item breakage
-                printMessage  += "\nUnfortunately, you lost your " + item;
+            if (!TreasureHunter.isEasyMode()) {
+                if (checkItemBreak()) {
+                    hunter.removeItemFromKit(item);
+                    // Update the message for item breakage
+                    printMessage += "\nUnfortunately, you lost your " + item;
+                }
             }
             return true;
         }
@@ -128,7 +130,13 @@ public class Town {
         } else {
             printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
             int goldDiff = (int) (Math.random() * 10) + 1;
-            if (Math.random() > noTroubleChance) {
+            double chanceOfWinning = 0;
+            if (TreasureHunter.isEasyMode()) {
+                chanceOfWinning = Math.random() * 2;
+            } else {
+                chanceOfWinning = Math.random();
+            }
+            if (chanceOfWinning > noTroubleChance) {
                 printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
                 printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RED + " gold." + Colors.RESET;
                 hunter.changeGold(goldDiff);
