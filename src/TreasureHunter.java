@@ -76,7 +76,7 @@ public class TreasureHunter {
             easyMode = true;
         } else if (hard.equals("s")){
             samuraiMode = true;
-
+            hunter = new Hunter(name, 10);
         }
     }
 
@@ -147,7 +147,7 @@ public class TreasureHunter {
         }
 
         if (allTreasuresFound) {
-            System.out.println("Congratulations, you have found the last of the three treasures, you win!");
+            System.out.println(" Congratulations, you have found the last of the three treasures, you win!");
         }
     }
 

@@ -130,7 +130,7 @@ public class Town {
         } else {
             int goldDiff = (int) (Math.random() * 10) + 1;
             if (hunter.hasItemInKit("sword")) {
-                printMessage += Colors.RED + "The brawler, seeing your sward, realizes he picked a losing fight and gives you his gold.";
+                printMessage += Colors.RED + "The brawler, seeing your sword, realizes he picked a losing fight and gives you his gold.";
                 printMessage += "\nYou receive " + Colors.YELLOW + goldDiff + Colors.RED + " gold." + Colors.RESET;
                 hunter.changeGold(goldDiff);
             } else {
@@ -160,15 +160,15 @@ public class Town {
 
     public void searchForTreasure() {
         if (treasure.equals("dust")) {
-            System.out.println("You couldn't find any treasure");
+            System.out.print("You couldn't find any treasure");
             searched = true;
         } else if (searched) {
-            System.out.println("You have already searched this town");
+            System.out.print("You have already searched this town");
         } else if (hunter.hasTreasure(treasure)) {
-            System.out.println("You already have " + treasure + ".");
+            System.out.print("You already have " + treasure + ".");
             searched = true;
         } else {
-            System.out.println("You found " + treasure + "!");
+            System.out.print("You found " + treasure + "!");
             hunter.addTreasure(treasure);
             searched = true;
             if (hunter.foundAll()) {
@@ -180,15 +180,15 @@ public class Town {
     public void digForGold() {
         boolean townHasGold = Math.random() < .5;
         if(dugForGold) {
-            System.out.println("You already dug for gold in this town.");
+            System.out.print("You already dug for gold in this town.");
         } else if (!hunter.hasItemInKit("shovel")) {
-            System.out.println("You can't dig for gold without a shovel");
+            System.out.print("You can't dig for gold without a shovel");
         } else if (!townHasGold) {
-            System.out.println("You dug but only found dirt");
+            System.out.print("You dug but only found dirt");
             dugForGold = true;
         } else {
             int gold = (int) (Math.random() * 20) + 1;
-            System.out.println("You dug up " + Colors.YELLOW + gold + Colors.RESET + " gold!");
+            System.out.print("You dug up " + Colors.YELLOW + gold + Colors.RESET + " gold!");
             hunter.changeGold(gold);
             dugForGold = true;
         }

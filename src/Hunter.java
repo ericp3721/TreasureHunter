@@ -51,8 +51,10 @@ public class Hunter {
      * @return true if the item is successfully bought.
      */
     public boolean buyItem(String item, int costOfItem) {
-        if (hasItemInKit("sword")) {
+        if (hasItemInKit("sword") && !hasItemInKit(item)) {
             addItem(item);
+        } else if (hasItemInKit("sword") && hasItemInKit(item)) {
+            return false;
         } else if ((costOfItem == 0 && !TreasureHunter.isSamuraiMode()) || gold < costOfItem || hasItemInKit(item)) {
             return false;
         } else {

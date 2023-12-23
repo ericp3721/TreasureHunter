@@ -53,6 +53,8 @@ public class Shop {
             int cost = checkMarketPrice(item, true);
             if (cost == 0 && !TreasureHunter.isSamuraiMode()) {
                 System.out.println("We ain't got none of those.");
+            } else if (cost == 0 && !item.equals("sword")) {
+                System.out.println("We ain't got none of those.");
             } else {
                 if (hunter.hasItemInKit("sword")) {
                     buyItem(item);
@@ -70,8 +72,11 @@ public class Shop {
             System.out.print("You currently have the following items: " + customer.getInventory());
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, false);
-            if (cost == 0) {
+            if (cost == 0 && !TreasureHunter.isSamuraiMode()) {
                 System.out.println("We don't want none of those.");
+                if (!item.equals("sword")) {
+                    System.out.println("We don't want none of those.");
+                }
             } else {
                 System.out.print("It'll get you " + cost + " gold. Sell it (y/n)? ");
                 String option = SCANNER.nextLine().toLowerCase();
@@ -111,8 +116,12 @@ public class Shop {
     public void buyItem(String item) {
         int costOfItem = checkMarketPrice(item, true);
         if (customer.hasItemInKit("sword")) {
-            System.out.println("The sword intimidates the shopkeeper and he gives you a " + item + " freely");
-            customer.buyItem(item, costOfItem);
+            if (customer.buyItem(item, costOfItem)) {
+                System.out.println("The sword intimidates the shopkeeper and he gives you a " + item + " freely");
+                customer.buyItem(item, costOfItem);
+            } else {
+                System.out.println("You've already got one of those!");
+            }
         } else if (customer.buyItem(item, costOfItem)) {
             System.out.println("Ye' got yerself a " + item + ". Come again soon.");
         } else {
@@ -127,7 +136,7 @@ public class Shop {
      */
     public void sellItem(String item) {
         int buyBackPrice = checkMarketPrice(item, false);
-        if (customer.sellItem(item, buyBackPrice)) {
+        if (customer.sellItem(item, buyBackPrice) || TreasureHunter.isSamuraiMode() && item.equals("sword")) {
             System.out.println("Pleasure doin' business with you.");
         } else {
             System.out.println("Stop stringin' me along!");
